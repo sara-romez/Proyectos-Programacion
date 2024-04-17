@@ -1,0 +1,113 @@
+package main_n_en_raya;
+
+public class Main_N_En_Raya {
+
+    public static void main(String[] args) {
+        
+    }
+
+public class Juego {
+    private Jugadores [] jugadores;
+    private boolean terminado;
+
+    public Juego(Jugadores[] jugadores, boolean terminado) {
+        this.jugadores = jugadores;
+        this.terminado = terminado;
+    }
+    
+    public void cambiarTurno() {
+        
+    }
+    
+    public void seleccionarJugador() {
+        
+    }
+    
+    public void crearJugadores() {
+        
+    }
+    
+    
+}
+
+public class Jugadores {
+    private char ficha;
+    private String nombre;
+    private boolean turno;
+    
+    public Jugadores(char ficha, String nombre, boolean turno) {
+        this.ficha= ficha;
+        this.nombre= nombre;
+        this.turno= turno;
+    }
+
+    public char getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(char ficha) {
+        this.ficha = ficha;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public boolean isTurno() {
+        return turno;
+    }
+
+    public void setTurno(boolean turno) {
+        this.turno = turno;
+    } 
+    
+}
+
+public class Tablero {
+    private char[][] tablero;
+    private int fichasColocadas;
+
+    public Tablero(char[][] arrayTablero, int fichasColocadas) { 
+        this.tablero = arrayTablero;
+        this.fichasColocadas = fichasColocadas;
+    }
+    
+    public void colocarFicha() {
+        
+    }
+    
+    public void verificarFinalizacion() {
+        
+    }
+    
+    private void comprobarFilas() {
+        
+    }
+    
+    private void comprobarColumnas() {
+        
+    }
+    
+    private void comprobarDiagonalPrincipal() {
+        
+    }
+    
+    private void comprobarDiagonalInversa() {
+        
+    }
+    
+    private boolean comprobarEmpate() {
+        
+     }
+    
+    
+    private void mostrarTablero() {
+        
+    }
+    
+    
+}
