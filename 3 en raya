@@ -1,0 +1,173 @@
+package tresenraya;
+import java.util.Scanner;
+
+public class TresEnRaya {
+
+    public static void main(String[] args) {
+     Scanner leer= new Scanner(System.in);
+        char [][] tablero= {
+            {' ',' ',' '}, 
+            {' ',' ',' '},
+            {' ',' ',' '}
+        };
+        String nombreJugador1;
+        String nombreJugador2;
+        String nombreJugadorActual= " ";
+        
+        nombreJugador1= asignarJugador1(); 
+        nombreJugador2= asignarJugador2(nombreJugador1);
+        nombreJugadorActual= eleccionTurno(nombreJugador1, nombreJugador2); //Se elige quien juega primero
+        mostrarTablero(tablero); 
+        jugando(tablero, nombreJugador1, nombreJugador2, nombreJugadorActual); //En este metodo ocurre el juego
+        
+    }
+    
+    public static void mostrarTablero (char [][] tablero) { 
+        System.out.println("  0 1 2");
+        for (int i=0; i < tablero.length; i++) {
+            System.out.print(i + " ");
+            for (int j=0; j < tablero.length; j++) {
+                System.out.print(tablero[i][j]); //se imprime la posicion del tablero que corresponde a la i y la j que es una posicion en blanco
+                if (j < 2) {
+                    System.out.print("|");
+                }
+            }
+            System.out.println();
+            if (i < 2) {
+                System.out.println("  -----");
+            }
+        }
+        System.out.println();
+        
+    }
+
+    public static void jugando (char [][] tablero, String nombreJugador1, String nombreJugador2, String nombreJugadorActual) {
+        boolean ganador=false;
+        boolean empate=false;
+        char jugador= 'X';
+
+        while (!ganador && !empate) { 
+            hacerJugada(tablero, jugador, nombreJugadorActual); 
+
+            if (comprobarGanador(tablero, jugador, ganador)) {
+                System.out.println("El jugador " + nombreJugadorActual + " ha ganado ¡FELICIDADES!");
+                mostrarTablero(tablero);
+                ganador= true; 
+                
+            } else if (comprobarEmpate(tablero, empate)) {
+                System.out.println("Hay empate, jugadores " + nombreJugador1 + " y " + nombreJugador2);
+                mostrarTablero(tablero);
+                empate= true; 
+                
+              } else {
+                    mostrarTablero(tablero);
+                    jugador= (jugador== 'X')? 'O':'X';
+                    nombreJugadorActual= (nombreJugadorActual.equals(nombreJugador1))? nombreJugador2 : nombreJugador1;
+                } 
+        }
+
+    }
+
+    public static void hacerJugada(char [][] tablero, char jugador, String nombreJugadorActual) {  
+        Scanner leer = new Scanner(System.in);
+        boolean valido=false;
+        int fila;
+        int columna; 
+        
+        while (!valido) {
+            System.out.println("Jugador " + nombreJugadorActual + " ¿Cuál es tu jugada? (fila y columna separados por un espacio)");
+            fila = leer.nextInt();
+            columna = leer.nextInt();
+            
+            if (fila>=0 && fila<3 && columna>=0 && columna<3 && tablero [fila][columna] == ' ') { //Se comprueba si el movimiento es válido
+                tablero [fila][columna] = jugador;
+                valido =true;
+                
+            } else {
+                System.out.println("Ese movimiento no es válido. Intentalo de nuevo");
+                
+            }  
+        }
+    }
+
+    public static boolean comprobarGanador(char [][] tablero, char jugador, boolean ganador) {  //FUNCIONA
+        //comprobar filas y columnas
+        for (int i=0; i<3; i++) {
+            if ((tablero [i][0] == jugador && tablero [i][1] == jugador && tablero [i][2] == jugador) || 
+            (tablero [0][i] == jugador && tablero [1][i] == jugador && tablero [2][i] == jugador))  {
+                ganador= true; 
+                
+            } 
+        } 
+        
+        //comprobar diagonales
+        if ((tablero [0][0] == jugador && tablero [1][1] == jugador && tablero [2][2] == jugador) || 
+        (tablero [0][2] == jugador && tablero [1][1] == jugador && tablero [2][0] == jugador)) {
+            ganador= true;
+            
+        }
+        
+        return ganador;
+        
+    }
+
+    public static boolean comprobarEmpate(char [][] tablero, boolean empate) {   //FUNCIONA 
+        for (int i=0; i<3; i++) {
+            for (int j=0; j<3; j++) {
+                if (tablero [i][j] == ' ') {
+                    return empate= false;
+                }
+            }
+        }
+        return empate= true;        
+    }
+    
+    public static String asignarJugador1() { 
+        Scanner leer= new Scanner(System.in);
+        String nombreJugador1;
+        
+        System.out.println("Jugador 1, escribe tu nombre");
+        nombreJugador1= leer.nextLine();
+        
+        System.out.println();
+   
+        return nombreJugador1;
+    } 
+    
+    public static String asignarJugador2 (String nombreJugador1) {
+        Scanner leer= new Scanner(System.in);
+        String nombreJugador2;
+        
+        System.out.println("Jugador 2, escribe tu nombre");
+        nombreJugador2= leer.nextLine();
+        
+        System.out.println(nombreJugador1 + "=X  " + nombreJugador2 + "=O ");
+        System.out.println();
+        
+        return nombreJugador2;
+    }
+
+    public static String eleccionTurno(String nombreJugador1, String nombreJugador2) {
+        Scanner leer= new Scanner(System.in);
+        boolean nombreValido=false;
+        String nombreJugadorActual= " ";
+        
+        while (!nombreValido) {
+            System.out.println("Quién quiere empezar el juego");
+            nombreJugadorActual= leer.nextLine();
+        
+            if (nombreJugadorActual.equals(nombreJugador1) || nombreJugadorActual.equals(nombreJugador2)) {
+                System.out.println("¡A JUGAR!");
+                nombreValido= true;
+                
+            } else {
+                System.out.println("El nombre es incorrecto, intentalo de nuevo");
+                
+            }
+    
+        }
+        
+        return nombreJugadorActual;    
+            
+    }
+}
