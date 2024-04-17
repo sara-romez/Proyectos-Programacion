@@ -50,7 +50,16 @@ public class Juego {
     
     public void crearJugadores() {
         //preguntar el nombre y la ficha con la que va a jugar
-        
+
+        for(int i=0; i<jugadores.length; i++) {
+            System.out.println("¿Cómo te llamas?");
+            Jugadores.nombre= leer.nextLine();
+            //jugadores[i]=Jugadores.nombre;
+            
+            System.out.println("¿Con qué ficha quieres jugar?");
+            Jugadores.ficha= leer.next().charAt(0);
+
+        }
     }
     
     
