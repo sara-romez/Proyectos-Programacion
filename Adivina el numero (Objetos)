@@ -1,0 +1,35 @@
+package mainnumeroaleatorio;
+import java.util.Random;
+
+public class MainNumeroAleatorio {
+
+    public static void main(String[] args) {
+       
+    }
+    
+}
+
+public class Juego {
+    int numAleatorio;
+    int intento;
+    int numIntentos;
+    Random aleatorio= new Random();
+    
+    public Juego() {
+        
+    }
+    
+    public void bienvenida() {
+        
+    } 
+    
+    public void jugar() {
+        
+    }
+    
+    public void pedirIntento() {
+        
+    }
+    
+
+}
