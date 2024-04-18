@@ -131,8 +131,10 @@ public class Tablero {
         }
     }
     
-    public static boolean verificarFinalizacion(boolean filaEntera, boolean columnaEntera, boolean diag1Entera, boolean diag2Entera) {
+    public static boolean verificarFinalizacion(boolean filaEntera, boolean columnaEntera, boolean diag1Entera, boolean diag2Entera, boolean empate) {
         if (filaEntera || columnaEntera || diag1Entera || diag2Entera) {
+            Juego.terminado=true;
+        }else if(empate) {
             Juego.terminado=true;
         }else {
             Juego.terminado=false;
