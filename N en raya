@@ -104,13 +104,12 @@ public class Jugadores {
 public class Tablero {
     private static char[][] tablero;
     private int fichasColocadas;
+    char jugador= Jugadores.getFicha();
 
     public Tablero(char[][] arrayTablero, int fichasColocadas) { 
         this.tablero = arrayTablero;
         this.fichasColocadas = fichasColocadas;
     }
-    
-    
     
     public static void colocarFicha() {
         Scanner leer = new Scanner(System.in);
@@ -132,26 +131,62 @@ public class Tablero {
         }
     }
     
-    public static void verificarFinalizacion() {
+    public static boolean verificarFinalizacion(boolean filaEntera, boolean columnaEntera, boolean diag1Entera, boolean diag2Entera) {
+        if (filaEntera || columnaEntera || diag1Entera || diag2Entera) {
+            Juego.terminado=true;
+        }else {
+            Juego.terminado=false;
+        }
         
+        return Juego.terminado;
     }
     
-    private void comprobarFilas() {
-        boolean filaEntera;
+    private boolean comprobarFilas() {
+        boolean filaEntera=true;
         
+        for(int i=0; i<tablero.length; i++) {
+            for(int j=0; j<tablero.length; j++) {
+                if (tablero[i][j] != jugador) {
+                    filaEntera= false;
+                }
+            }
+        }
+        return filaEntera;
     }
     
-    private void comprobarColumnas() {
-        boolean columnaEntera;
+    private boolean comprobarColumnas() {
+        boolean columnaEntera= true;
         
+        for(int i=0; i<tablero.length; i++) {
+            for(int j=0; j<tablero.length; j++) {
+                if (tablero[i][j] != jugador) {
+                    columnaEntera= false;
+                }
+            }
+        }
+        return columnaEntera;
     }
     
-    private void comprobarDiagonalPrincipal() {
-        
+    private boolean comprobarDiagonalPrincipal() {
+        boolean diag1Entera= true;
+       
+        for(int i=0; i<tablero.length; i++) {   
+            if (Tablero.tablero[i][i] != jugador) {   // DIAGONAL 1 (de izq a drch)
+                diag1Entera= false;
+            }
+        }
+        return diag1Entera;
     }
     
-    private void comprobarDiagonalInversa() {
+    private boolean comprobarDiagonalInversa() {
+        boolean diag2Entera= true;
         
+        for(int i=0; i<tablero.length; i++) {   
+            if (tablero[i][tablero.length-i -1] != jugador) {   //DIAGONAL 2 (de drch a izq)
+                diag2Entera= false;
+            }
+        }
+        return diag2Entera;
     }
     
     private boolean comprobarEmpate() {
@@ -165,8 +200,7 @@ public class Tablero {
         }
         return empate= true;
      }
-    
-    
+
     public static void mostrarTablero() {
         System.out.print("  ");
         for (int i=0; i<tablero.length; i++) {
@@ -191,6 +225,5 @@ public class Tablero {
         System.out.println();
         
     }
-    
     
 }
