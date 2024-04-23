@@ -9,9 +9,9 @@ public class Main_N_En_Raya {
     }
 
 public class Juego {
-    private Jugadores [] jugadores;
+    private static Jugadores [] jugadores;
     private Jugadores [] fichas;
-    public static boolean terminado;
+    static boolean terminado;
     Scanner leer= new Scanner(System.in);
 
     public Juego() {
@@ -42,22 +42,21 @@ public class Juego {
         } 
     }
     
-    public void cambiarTurno() {
+    public static Jugadores cambiarTurno() {
         //cambiar la ficha que este jugando 
-        String jugadorActual;
+        Jugadores jugadorActual= null;
         for (int i=0; i<jugadores.length; i++) {
             if(jugadores[i].isTurno()==true) {
                 jugadores[i].setTurno(false);
                 
             } else {
                 jugadores[i].setTurno(true);
-                
-                
+                jugadores[i].getNombre();
+                jugadorActual= jugadores[i];
             }
-            
         }
         
-        
+        return jugadorActual;
     }
     
     public static String seleccionarPrimerJugador() {
@@ -84,8 +83,7 @@ public class Juego {
         }
         
         return nombreJugadorActual;    
-            
-        
+
     }
     
     public void crearJugadores() {
@@ -100,10 +98,7 @@ public class Juego {
                 char ficha= leer.next().charAt(0);       
                 jugadores[i].setFicha(ficha);
         }
-  
     }
-
-    
 }
 
 public class Jugadores {
@@ -158,12 +153,12 @@ public class Tablero {
         boolean valido=false;
 
         while (!valido) {
-            System.out.println("Jugador " + Jugadores.getNombre() + " ¿Cuál es tu jugada? (fila y columna separados por un espacio)");
+            System.out.println("Jugador " + Juego.cambiarTurno().getNombre() + " ¿Cuál es tu jugada? (fila y columna separados por un espacio)");
             int fila = leer.nextInt();
             int columna = leer.nextInt();
             
             if (fila>=0 && fila<tablero.length && columna>=0 && columna<tablero.length && tablero [fila][columna] != 'X' && tablero [fila][columna] != 'O') { //Se comprueba si el movimiento es válido
-                tablero [fila][columna] = Jugadores.getFicha();
+                tablero [fila][columna] = Juego.cambiarTurno().getFicha();
                 valido =true;
                 
             } else {
@@ -282,3 +277,5 @@ public class Tablero {
     Tablero() {
         
     }
+    
+}
