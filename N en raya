@@ -3,27 +3,32 @@ package main_n_en_raya;
 public class Main_N_En_Raya {
 
     public static void main(String[] args) {
+        Juego juego1= new Juego();
         
+        juego1.jugar();
     }
 
 public class Juego {
     private Jugadores [] jugadores;
-    private boolean terminado;
+    private Jugadores [] fichas;
+    public static boolean terminado;
+    Scanner leer= new Scanner(System.in);
 
     public Juego() {
         this.jugadores = new Jugadores[2];
-        this.terminado = false;
-        crearJugadores();
-        seleccionarJugador();
-        Tablero[]= new Tablero[];
+        this.fichas = new Jugadores[2];
+        terminado = false;
+        crearJugadores(String nombre, char ficha);
+        seleccionarPrimerJugador();
         Tablero.crearTablero();
+        Tablero[]= new Tablero[longitud];
     }
     
     public void inicializarJuego() {
         this.jugadores = new Jugadores[2];
         this.terminado = false;
-        crearJugadores();
-        seleccionarJugador();
+        crearJugadores(String nombre, char ficha);
+        seleccionarPrimerJugador(String nombreJugador1, String nombreJugador2);
         Tablero= new Tablero[];
         Tablero.crearTablero();
     }
@@ -32,41 +37,56 @@ public class Juego {
         while(!terminado) {
             Tablero.colocarFicha();
             Tablero.mostrarTablero();
-            Tablero.verificarFinalizacion();
+            boolean verificarFinalizacion = Tablero.verificarFinalizacion(terminado, terminado, terminado, terminado, terminado);
             cambiarTurno();
         }
     }
+    
     public void cambiarTurno() {
         //cambiar la ficha que este jugando 
         
         
     }
     
-    public void seleccionarJugador() {
+    public static String seleccionarPrimerJugador() {
         //selecciona el que juega primero
+        Scanner leer= new Scanner(System.in);
+        boolean nombreValido=false;
+        String nombreJugadorActual= null;
+        String nombreJugador1= null;
+        String nombreJugador2= null;
         
+        while (!nombreValido) {
+            System.out.println("Quién quiere empezar el juego");
+            nombreJugadorActual= leer.nextLine();
         
+            if (nombreJugadorActual.equals(nombreJugador1) || nombreJugadorActual.equals(nombreJugador2)) {
+                System.out.println("¡A JUGAR!");
+                nombreValido= true;
+                
+            } else {
+                System.out.println("El nombre es incorrecto, intentalo de nuevo");
+                
+            }
+    
+        }
+        
+        return nombreJugadorActual;    
+
     }
     
     public void crearJugadores(String nombre, char ficha) {
         //preguntar el nombre y la ficha con la que va a jugar
         
         for(int i=0; i<jugadores.length; i++) {
-            do{
                 System.out.println("¿Cómo te llamas?");
                 nombre= leer.next();
                 jugadores[i]= new Jugadores(nombre);
             
                 System.out.println("¿Con qué ficha quieres jugar?");
-                ficha= leer.next().charAt(0);
-                fichas[i]= new Jugadores(ficha);
-                
-            } while();
-
+                ficha= leer.next().charAt(0);           
         }
-        
-    }
-
+    }    
 }
 
 public class Jugadores {
@@ -112,7 +132,7 @@ public class Tablero {
     char jugador= Jugadores.getFicha();
 
     public Tablero(char[][] arrayTablero, int fichasColocadas) { 
-        this.tablero = arrayTablero;
+        tablero = arrayTablero;
         this.fichasColocadas = fichasColocadas;
     }
     
@@ -207,6 +227,17 @@ public class Tablero {
         }
         return empate= true;
      }
+    
+    public static int crearTablero() {
+        int longitud;
+        Scanner leer= new Scanner(System.in);
+        
+        System.out.println("De cuantas casillas quieres que sea el tablero");
+        longitud= leer.nextInt();
+        
+        return longitud;
+        
+    }
 
     public static void mostrarTablero() {
         System.out.print("  ");
