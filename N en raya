@@ -18,27 +18,31 @@ public class Juego {
         this.jugadores = new Jugadores[2];
         this.fichas = new Jugadores[2];
         terminado = false;
+        /*
         crearJugadores();
         seleccionarPrimerJugador();
         Tablero.crearTablero();
         Tablero tab= new Tablero();
+    */
     }
     
     public void inicializarJuego() {
         this.jugadores = new Jugadores[2];
         this.terminado = false;
         crearJugadores();
-        seleccionarPrimerJugador();
+        //seleccionarPrimerJugador();
         Tablero tab= new Tablero();
         Tablero.crearTablero();
+        Tablero.mostrarTablero();
+        jugar();
     }
     
     public void jugar() {
         while(!terminado) {
             Tablero.colocarFicha();
             Tablero.mostrarTablero();
-            boolean verificarFinalizacion = Tablero.verificarFinalizacion(terminado, terminado, terminado, terminado, terminado);
             cambiarTurno();
+            boolean verificarFinalizacion = Tablero.verificarFinalizacion(terminado, terminado, terminado, terminado, terminado); 
         } 
     }
     
@@ -64,8 +68,8 @@ public class Juego {
         Scanner leer= new Scanner(System.in);
         boolean nombreValido=false;
         String nombreJugadorActual= null;
-        String nombreJugador1= null;
-        String nombreJugador2= null;
+        Jugadores nombreJugador1= jugadores[0];
+        Jugadores nombreJugador2= jugadores[1];
         
         while (!nombreValido) {
             System.out.println("Quién quiere empezar el juego");
@@ -142,9 +146,10 @@ public class Tablero {
     private static char[][] tablero;
     private int fichasColocadas;
     char jugador= Jugadores.getFicha();
+    static int longitud;
 
-    public Tablero(char[][] arrayTablero, int fichasColocadas) { 
-        tablero = arrayTablero;
+    public Tablero(char[][] tablero, int fichasColocadas) { 
+        this.tablero=tablero;
         this.fichasColocadas = fichasColocadas;
     }
     
@@ -239,11 +244,12 @@ public class Tablero {
      }
     
     public static int crearTablero() {
-        int longitud;
         Scanner leer= new Scanner(System.in);
         
         System.out.println("De cuantas casillas quieres que sea el tablero");
         longitud= leer.nextInt();
+        
+        tablero= new char[longitud][longitud];
         
         return longitud;
         
