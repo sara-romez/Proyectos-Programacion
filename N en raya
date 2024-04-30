@@ -1,19 +1,24 @@
 package main_n_en_raya;
+import java.util.Scanner;
 
 public class Main_N_En_Raya {
 
     public static void main(String[] args) {
         Juego juego1= new Juego();
         
-        juego1.jugar();
+        juego1.inicializarJuego();
+
     }
+    
+}
 
 public class Juego {
     private static Jugadores [] jugadores;
     private Jugadores [] fichas;
     static boolean terminado;
     Scanner leer= new Scanner(System.in);
-
+    
+    
     public Juego() {
         this.jugadores = new Jugadores[2];
         this.fichas = new Jugadores[2];
@@ -106,17 +111,17 @@ public class Juego {
 }
 
 public class Jugadores {
-    private char ficha;
-    private String nombre;
+    static char ficha;
+    static String nombre;
     private boolean turno;
     
-    public Jugadores(char ficha, String nombre, boolean turno) {
-        this.ficha= ficha;
+    public Jugadores(String nombre) {
+        ficha= ficha;
         this.nombre= nombre;
         this.turno= turno;
     }
 
-    public char getFicha() {
+    public static char getFicha() {
         return ficha;
     }
 
@@ -124,7 +129,7 @@ public class Jugadores {
         this.ficha = ficha;
     }
 
-    public String getNombre() {
+    public static String getNombre() {
         return nombre;
     }
 
@@ -138,8 +143,8 @@ public class Jugadores {
 
     public void setTurno(boolean turno) {
         this.turno = turno;
-    } 
-    
+    }
+  
 }
 
 public class Tablero {
